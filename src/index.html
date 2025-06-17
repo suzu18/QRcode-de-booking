@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>会議室予約システム</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="login-card">
+            <h1>会議室予約システム</h1>
+            <p>ログインして会議室を予約してください</p>
+            <button id="loginBtn" class="login-btn">ログイン</button>
+            <div id="loading" class="loading hidden">認証中...</div>
+        </div>
+    </div>
+
+    <script src="https://alcdn.msftauth.net/browser/2.38.4/js/msal-browser.min.js"></script>
+    <script src="js/msalConfig.js"></script>
+    <script src="js/common.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 既にログイン済みかチェック
+            checkAuthState();
+            
+            document.getElementById('loginBtn').addEventListener('click', function() {
+                document.getElementById('loading').classList.remove('hidden');
+                login();
+            });
+        });
+
+        async function checkAuthState() {
+            try {
+                const accounts = msalInstance.getAllAccounts();
+                if (accounts.length > 0) {
+                    // 既にログイン済みの場合、会議室選択ページにリダイレクト
+                    window.location.href = 'meetingroom101.html';
+                }
+            } catch (error) {
+                console.error('認証状態の確認に失敗:', error);
+            }
+        }
+
+        async function login() {
+            try {
+                const loginRequest = {
+                    scopes: ['User.Read', 'Calendars.ReadWrite'],
+                    redirectUri: window.location.origin + '/index.html'
+                };
+                
+                await msalInstance.loginRedirect(loginRequest);
+            } catch (error) {
+                console.error('ログインに失敗:', error);
+                document.getElementById('loading').classList.add('hidden');
+                alert('ログインに失敗しました。もう一度お試しください。');
+            }
+        }
+    </script>
+</body>
+</html>
