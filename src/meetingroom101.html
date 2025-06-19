@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>101会議室 - 会議室予約システム</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="app-header">
+            <h1 id="room-name">101会議室</h1>
+            <button id="logoutBtn" class="logout-btn">ログアウト</button>
+        </header>
+        
+        <div class="room-card">
+            <div id="room-status" class="room-status">
+                <!-- 会議室の状況がここに表示されます -->
+            </div>
+            
+            <div class="booking-section">
+                <h2>会議を予約する</h2>
+                <p>以下のボタンをクリックして会議を予約してください</p>
+                
+                <div class="booking-buttons">
+                    <button id="book30min" class="booking-btn booking-btn-30">
+                        <span class="duration">30分</span>
+                        <span class="description">今から30分後まで</span>
+                    </button>
+                    
+                    <button id="book60min" class="booking-btn booking-btn-60">
+                        <span class="duration">60分</span>
+                        <span class="description">今から60分後まで</span>
+                    </button>
+                </div>
+                
+                <div id="loading" class="loading hidden">
+                    <div class="spinner"></div>
+                    <span>予約中...</span>
+                </div>
+            </div>
+            
+            <div class="navigation">
+                <h3>他の会議室</h3>
+                <div class="room-links">
+                    <a href="meetingroom102.html" class="room-link">102会議室</a>
+                    <!-- 他の会議室へのリンクもここに追加 -->
+                </div>
+            </div>
+        </div>
+        
+        <div id="success-message" class="message success-message" style="display: none;"></div>
+        <div id="error-message" class="message error-message" style="display: none;"></div>
+    </div>
+
+    <script src="https://alcdn.msftauth.net/browser/2.38.4/js/msal-browser.min.js"></script>
+    <script src="js/msalConfig.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
